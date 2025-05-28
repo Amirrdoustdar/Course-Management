@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin: Courses</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="p-4">
+        <a href="{{ url_for('admin') }}" class="text-cyan-800 hover:underline">
+            &larr; Back to Admin Panel
+        </a>
+    </div>
+    <div class="flex justify-between items-center p-5">
+        <h1 class="font-bold text-3xl text-cyan-900 border-l-4 border-l-rose-300 p-2">Available Courses</h1>
+        <a href="{{ url_for('admin_courses_add') }}" class="text-slate-100 rounded-lg p-3 bg-cyan-800 hover:bg-cyan-700">Add New Course</a>
+    </div>
+    <div class="flex p-5 flex-wrap justify-start max-[950px]:flex-col max-[950px]:items-center gap-6">
+        {% for course in courses %}
+        <div class="flex bg-rose-50 flex-col w-[30%] max-[950px]:w-[90%] gap-3 border-2 border-cyan-800 rounded-2xl p-4">
+            <h2 class="font-semibold text-2xl">{{ course['title']|title }}</h2>
+            {% if course['photo_path'] %}
+                <img src="{{ url_for('uploaded_file', filename=course['photo_path']|basename) }}" alt="" class="h-[33vh] rounded-2xl object-cover">
+            {% endif %}
+            <p class="flex-grow">{{ course['description'] }}</p>
+            <div class="flex gap-2 mt-4">
+                <a href="{{ url_for('admin_courses_edit', courseName=course['title']) }}" class="flex-1">
+                    <button class="w-full bg-cyan-800 text-slate-100 p-2 rounded-xl cursor-pointer hover:bg-cyan-700">Edit</button>
+                </a>
+                <form method="POST" class="flex-1">
+                    <input type="text" value="{{ course['title'] }}" style="display: none;" name="delete">
+                    <button type="submit" class="w-full bg-rose-200 cursor-pointer rounded-xl p-2 hover:bg-rose-300">Delete</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

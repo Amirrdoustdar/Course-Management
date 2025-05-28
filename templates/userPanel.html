@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="p-4">
+        <a href="{{ url_for('home') }}" class="text-cyan-800 hover:underline">
+            &larr; Back to Homepage
+        </a>
+    </div>
+    <div class="flex flex-col p-5 m-6 border-2 rounded-2xl border-cyan-800 gap-4 bg-rose-50">
+        <div class="flex justify-around items-center m-6">
+            <h1 class="font-bold text-2xl border-rose-50 border-b-2 border-b-rose-300 p-2">{{ user['username'] }}</h1>
+            {% if user['image_path'] %}
+                <img src="{{ url_for('uploaded_file', filename=user['image_path']|basename) }}" alt="profile" class="flex rounded-2xl w-[15%]">
+            {% endif %}
+        </div>
+
+        <div class="flex flex-col justify-around gap-8 p-4">
+            <div>
+                <h2 class="font-semibold text-2xl border-rose-50 border-l-4 border-l-rose-300 p-2 mb-4">My Courses</h2>
+                <div class="flex w-[100%] justify-start flex-wrap p-4 gap-4">
+                    {% if user_courses %}
+                        {% for item in user_courses %}
+                        <div class="flex flex-col gap-3 border-2 border-cyan-800 w-[30%] rounded-2xl p-3 bg-rose-200">
+                            <h3 class="font-semibold text-xl">{{ item['title']|title }}</h3>
+                            {% if item['photo_path'] %}
+                                <img src="{{ url_for('uploaded_file', filename=item['photo_path']|basename) }}" alt="" class="rounded-2xl h-[33vh] object-cover">
+                            {% endif %}
+                            <p>{{ item['description'] }}</p>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>You are not enrolled in any courses yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div>
+                <h2 class="font-semibold text-2xl border-rose-50 border-l-4 border-l-rose-300 p-2 mb-4">Shopping Cart</h2>
+                {% if cart %}
+                    <div class="flex w-[100%] justify-start flex-wrap p-4 gap-4">
+                        {% for course in cart %}
+                        <div class="flex flex-col gap-3 border-2 border-cyan-800 w-[30%] rounded-2xl p-3 bg-rose-200">
+                            <h3 class="font-semibold text-xl">{{ course['title']|title }}</h3>
+                            {% if course['photo_path'] %}
+                                <img src="{{ url_for('uploaded_file', filename=course['photo_path']|basename) }}" alt="" class="rounded-2xl h-[33vh] object-cover">
+                            {% endif %}
+                            <p>{{ course['description'] }}</p>
+                            <form method="POST">
+                                <input type="text" name="name" value="{{ course['title'] }}" style="display: none;">
+                                <button type="submit" class="bg-red-300 p-3 w-[100%] rounded-2xl cursor-pointer hover:bg-red-400 flex justify-center items-center">Remove</button>
+                            </form>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <a href="{{ url_for('user_save', username=user['username']) }}" class="flex bg-cyan-800 p-3 text-slate-100 rounded-2xl cursor-pointer hover:bg-cyan-700 items-center justify-center mt-4"><button>Enroll in Courses</button></a>
+                {% else %}
+                    <p class="px-4">Your cart is empty.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="flex justify-end gap-4 p-4 mt-8 border-t-2">
+             <a href="{{ url_for('user_edit', username=user['username']) }}">
+                <button class="bg-cyan-800 p-3 text-slate-100 rounded-2xl cursor-pointer hover:bg-cyan-700 flex items-center justify-center">Edit Profile</button>
+            </a>
+            <a href="{{ url_for('logout') }}" class="bg-rose-400 p-3 text-slate-100 rounded-2xl cursor-pointer hover:bg-rose-500 flex items-center justify-center">🚪 Logout</a>
+        </div>
+    </div>
+</body>
+</html>

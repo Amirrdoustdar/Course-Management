@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-slate-200">
+    <div class="p-4">
+        <a href="{{ url_for('home') }}" class="text-cyan-800 hover:underline">
+            &larr; Back to Homepage
+        </a>
+    </div>
+    <div class="flex w-[100%] items-center justify-center ">
+        <form method="POST" class="form flex flex-col rounded-xl bg-cyan-800 gap-3 w-[30%] items-center mt-[5%] p-6">
+            <h2 class="text-slate-100 font-semibold pt-3 text-2xl">Welcome back!</h2>
+            <h2 class="text-slate-200 ">Please Login...</h2>
+            {% if error %}
+                <div class="bg-red-200 text-red-800 p-3 rounded-lg w-[85%] text-center">{{ error }}</div>
+            {% endif %}
+            <input type="text" placeholder="Enter username" required name="username" class="p-3 border-2 outline-none bg-cyan-900 m-[2vh] rounded-xl text-slate-100 w-[85%]">
+            <input type="password" required placeholder="Enter password" name="password" class="p-3 border-2 outline-none bg-cyan-900 m-[2vh] rounded-xl text-slate-100 w-[85%]">
+            <button type="submit" class="mb-[4vh] bg-rose-200 hover:bg-rose-300 cursor-pointer rounded-xl p-3 w-[85%]">Login</button>
+            <a href="{{ url_for('forget_password') }}" class="text-slate-100 border-b-2 p-2 border-b-rose-200 mb-[5vh] hover:border-b-rose-300">Forgot password?</a>
+        </form>
+    </div>
+</body>
+</html>

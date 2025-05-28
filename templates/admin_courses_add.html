@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin: Add Course</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-slate-200">
+    <div class="p-4">
+        <a href="{{ url_for('admin_courses') }}" class="text-cyan-800 hover:underline">
+            &larr; Back to Courses List
+        </a>
+    </div>
+    <div class="flex justify-center items-center mt-[5%] p-4">
+        <form method="POST" enctype="multipart/form-data" class="flex flex-col w-[50%] bg-rose-50 outline-none p-6 border-2 border-cyan-800 rounded-2xl gap-4">
+            <h1 class="text-2xl font-bold mb-4">Add a New Course</h1>
+            <label for="title" class="font-semibold border-l-4 border-rose-300 p-2">Title:</label>
+            <input type="text" name="title" class="border-2 border-cyan-800 rounded-lg p-2" required>
+            <label for="description" class="font-semibold border-l-4 border-rose-300 p-2">Description:</label>
+            <textarea name="description" class="border-2 border-cyan-800 rounded-lg p-2 h-24" required></textarea>
+            <label for="watch_hours" class="font-semibold border-l-4 border-rose-300 p-2">Watch Hours:</label>
+            <input type="number" name="watch_hours" class="border-2 border-cyan-800 rounded-lg p-2" required>
+            <label for="class_day" class="font-semibold border-l-4 border-rose-300 p-2">Class Day:</label>
+            <input type="text" name="class_day" class="border-2 border-cyan-800 rounded-lg p-2" placeholder="e.g., Monday" required>
+            <label for="image" class="font-semibold border-l-4 border-rose-300 p-2">Image:</label>
+            <input type="file" name="image" class="text-cyan-900 file:bg-cyan-800 file:text-slate-100 file:p-2 file:rounded-lg file:border-0 cursor-pointer file:hover:bg-cyan-700">
+            <button type="submit" class="bg-cyan-800 rounded-lg p-3 text-slate-100 cursor-pointer hover:bg-cyan-700 mt-4">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

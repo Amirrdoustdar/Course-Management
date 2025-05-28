@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    
+    <div class="bg-cyan-800 flex w-[100%] justify-between p-4 gap-2 items-center">
+        <h1 class="font-bold italic text-2xl text-slate-50">Pythora</h1>
+        <form method="POST" class="flex gap-2 w-1/3">
+            <input type="text" name="searchcourse" class="border-1 outline-none rounded-3xl border-slate-200 bg-cyan-900 text-slate-100 w-[100%] p-2" placeholder="Search for anything..." >
+            <button type="submit" class="flex bg-slate-100 p-2 cursor-pointer rounded-2xl hover:bg-rose-200 text-cyan-900 items-center justify-center">Search</button>
+        </form>
+         
+        {% if not session.get('username') %}
+            <div class="flex gap-4">
+                <a href="{{ url_for('login') }}" class="border-2 border-rose-200 rounded-lg items-center justify-center flex p-3 text-rose-200 cursor-pointer hover:bg-cyan-700">Login</a>
+                <a href="{{ url_for('signup') }}" class="bg-rose-200 rounded-lg items-center justify-center flex p-3 text-cyan-900 cursor-pointer hover:bg-rose-300">Sign Up</a>
+            </div>
+        {% elif session.get('is_admin') %}
+            <a href="{{ url_for('admin') }}" class="bg-rose-200 p-2 rounded-xl font-semibold hover:bg-rose-300">Admin Panel</a>
+        {% else %}
+            <a href="{{ url_for('user', username=session['username']) }}" class="bg-rose-200 p-2 rounded-xl font-semibold hover:bg-rose-300">{{ session['username'] }}</a>
+        {% endif %}
+    </div>
+
+    <div class="flex flex-col p-8">
+        <h2 class="font-semibold text-3xl gap-2 mb-[1vh]">Ready to level up your future?</h2>
+        <span class="text-xl text-stone-500">Gain in-demand skills and hands-on experience with Career Accelerators.</span>
+        <span class="text-xl text-stone-500">Whether its core skills or cutting-edge tech, Pythora helps drive your professional growth.</span>
+    </div>
+
+   <div class="flex gap-5 justify-center p-7 mt-[2vh]">
+        <div class="flex flex-col bg-rose-50 w-[30%] p-4 border-3 border-cyan-800 rounded-3xl">
+            <div class="flex h-[33vh]">
+                <img src="{{url_for('static', filename='images/swift.png')}}" alt="swift" class="rounded-2xl">
+            </div>
+            <h3 class="font-semibold text-xl mb-[1vh] mt-[1vh]">Swift</h3>
+            <span>Swift is Apple’s powerful and easy-to-learn programming language used to build apps for iOS, macOS, and more. In this tutorial video, you’ll learn the basics of Swift—from simple variables to functions and control flow. Whether you're just starting out or looking to sharpen your skills, this is a great place to begin your journey into app development.</span>
+            <button type="submit" class=" items-center justify-center bg-cyan-800 rounded-xl p-2 text-rose-50 mt-[2vh] cursor-pointer hover:bg-cyan-700">learn now</button>
+        </div>
+        <div class="flex flex-col bg-rose-50 w-[30%] p-4 border-3 border-cyan-800 rounded-3xl">
+            <div class="flex h-[33vh]">
+                <img src="{{url_for('static', filename='images/data-science.avif')}}" alt="machine learning" class="rounded-2xl">
+            </div>
+            <h3 class="font-semibold text-xl mb-[1vh] mt-[1vh]">Machine Learning</h3>
+            <span>Machine learning is transforming the way we solve problems-powering everything from recommendation systems to self-driving cars. In this tutorial video, you'll explore the fundamentals of machine learning, including key concepts like algorithms, training data, and model evaluation. It's the perfect starting point for anyone curious about how machines learn from data.</span>
+            <button type="submit" class=" items-center justify-center bg-cyan-800 rounded-xl p-2 text-rose-50 mt-[2vh] cursor-pointer hover:bg-cyan-700">learn now</button>
+        </div>
+        <div class="flex flex-col bg-rose-50 w-[30%] p-4 border-3 border-cyan-800 rounded-3xl">
+            <div class="flex h-[33vh]">
+                <img src="{{url_for('static', filename='images/cursos-de-Python.jpg')}}" alt="python" class="rounded-2xl">
+            </div>
+            <h3 class="font-semibold text-xl mb-[1vh] mt-[1vh]">Python</h3>
+            <span>Python is one of the most popular and versatile programming languages today—used in web development, automation, data analysis, and more. In this tutorial video, we’ll guide you through the fundamentals of Python, including variables, loops, functions, and basic syntax. Whether you're completely new to coding or just new to Python, this is a great place to start building your skills.</span>
+            <button type="submit" class=" items-center justify-center bg-cyan-800 rounded-xl p-2 text-rose-50 mt-[2vh] cursor-pointer hover:bg-cyan-700">learn now</button>
+        </div>
+    </div>
+
+    <div class="flex justify-between p-5 items-center bg-stone-100 w-[100%]">
+        <h2 class="font-semibold italic text-lg">Pythora</h2>
+        <span class="text-cyan-900">Made with ❤</span>
+    </div>
+
+</body>
+</html>

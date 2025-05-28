@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-slate-200">
+    <div class="p-4">
+        <a href="{{ url_for('home') }}" class="text-cyan-800 hover:underline">
+            &larr; Back to Homepage
+        </a>
+    </div>
+    <div class="flex w-full items-center justify-center p-4">
+        <form method="POST" enctype="multipart/form-data" class="form flex flex-col rounded-xl bg-cyan-800 gap-3 w-[40%] items-center mt-[3%] p-6">
+            <h2 class="text-slate-100 font-semibold pt-3 text-2xl">Welcome to Pythora!</h2>
+            <h2 class="text-slate-200">Please sign up.</h2>
+            {% if error %}
+                <div class="bg-red-200 text-red-800 p-3 rounded-lg w-[85%] text-center">{{ error }}</div>
+            {% endif %}
+            <input type="text" placeholder="Enter username" required name="username" class="p-3 border-2 outline-none border-slate-200 bg-cyan-900 m-[1vh] rounded-xl text-slate-100 w-[85%]">
+            <input type="email" placeholder="Enter email" required name="email" class="p-3 border-2 outline-none border-slate-200 bg-cyan-900 m-[1vh] rounded-xl text-slate-100 w-[85%]">
+            <input type="password" required placeholder="Enter password" name="password" class="p-3 border-2 outline-none border-slate-200 bg-cyan-900 m-[1vh] rounded-xl text-slate-100 w-[85%]">
+            <input type="password" required placeholder="Repeat password" name="confirm_password" class="p-3 border-2 outline-none border-slate-200 bg-cyan-900 m-[1vh] rounded-xl text-slate-100 w-[85%]">
+            <label for="security_question" class="text-slate-200 w-[85%] text-left">Security Question:</label>
+            <input type="text" required placeholder="e.g., What is your first pet's name?" name="security_question" class="p-3 border-2 outline-none border-slate-200 bg-cyan-900 m-[1vh] rounded-xl text-slate-100 w-[85%]">
+            <label for="security_answer" class="text-slate-200 w-[85%] text-left">Security Answer:</label>
+            <input type="text" required placeholder="Answer to your security question" name="security_answer" class="p-3 border-2 outline-none border-slate-200 bg-cyan-900 m-[1vh] rounded-xl text-slate-100 w-[85%]">
+            <label for="image" class="text-slate-200 w-[85%] text-left">Profile Picture (optional):</label>
+            <input type="file" name="image" class="text-slate-100 file:bg-gray-400 file:text-black file:border-0 file:p-2 file:rounded-lg file:hover:bg-rose-200 rounded-xl p-2 m-[1vh] w-[85%] cursor-pointer">
+            <button type="submit" class="mb-[4vh] mt-4 bg-rose-200 hover:bg-rose-300 cursor-pointer rounded-xl p-3 w-[85%] font-bold">Register</button>
+        </form>
+    </div>
+</body>
+</html>

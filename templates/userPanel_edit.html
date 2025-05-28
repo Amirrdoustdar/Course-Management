@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="p-4">
+        <a href="{{ url_for('user', username=user['username']) }}" class="text-cyan-800 hover:underline">
+            &larr; Back to My Panel
+        </a>
+    </div>
+    <div class="flex items-center justify-center p-6">
+        <form method="POST" enctype="multipart/form-data" class="flex flex-col p-5 gap-4 border-2 border-cyan-800 m-6 rounded-2xl bg-rose-50 w-[45%] max-[950px]:w-[70%]">
+            <h1 class="font-bold text-2xl">Edit Profile for: {{ user['username'] }}</h1>
+            <label for="email" class="font-semibold">Email:</label>
+            <input type="email" class="border-2 border-cyan-800 p-2 rounded-lg outline-none text-cyan-900" value="{{ user['email'] }}" name="email">
+            <label for="password" class="font-semibold">New Password (optional):</label>
+            <input type="password" class="border-2 border-cyan-800 p-2 rounded-lg outline-none" placeholder="Enter new password (leave blank to keep current)" name="password">
+            <label for="image" class="font-semibold">Profile Picture:</label>
+            {% if user['image_path'] %}
+                <img src="{{ url_for('uploaded_file', filename=user['image_path']|basename) }}" class="flex w-[20vh] rounded-3xl" alt="Current profile picture">
+            {% endif %}
+            <input type="file" name="image" class="bg-rose-300 p-2 rounded-lg cursor-pointer text-cyan-900 hover:bg-cyan-800 hover:text-slate-100 w-[60%] max-[950px]:w-[100%]">
+            <button type="submit" class="bg-cyan-800 rounded-lg p-2 w-[40%] text-slate-100 cursor-pointer hover:bg-cyan-700 max-[950px]:w-[100%] mt-4">Submit Changes</button>
+        </form>
+    </div>
+</body>
+</html>
